@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+<include file="$(find freenect_launch)/launch/freenect.launch"/>
+  <arg name="depth_registration" value="true" />
+
+<!--this line is included in mybot_rviz.launch file param name="robot_description" command="$(find xacro)/xacro.py '$(find mybot_description)/urdf/mybot.xacro'"/-->
+
+
+<!--  depth image to laser scan -->
+
+<node name="depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" > 
+<param name="output_frame_id" value="camera_depth_frame" />
+<remap from="image" to="/camera/depth/image_raw"/>
+</node>
+
+
+<!-- publishing odometry from hardware -->
+ <remap from="/hoverboard_velocity_controller/odom" to="odom"/> 
+
+
+<!--/hoverboard_velocity_controller/cmd_vel -->
+
+<!-- open the rosserial from other terminal and select the right serial port and baud rate -->
+
+
+<include file="$(find mybot_slam)/launch/mybot_teleop.launch"/>
+
+<node name="turtlebot3_teleop_key" pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" output="screen">
+  <remap from="cmd_vel" to="hoverboard_velocity_controller/cmd_vel" />
+  </node>
+
+
+<!-- gmapping node -->
+<include file="$(find mybot_slam)/launch/gmapping.launch"/>
+
+
+</launch>
