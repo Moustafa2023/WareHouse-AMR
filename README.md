@@ -22,7 +22,7 @@ WareHouse-AMR
   - Actuators
     - 2 Hoverboard Motors 8 inc  350 W 36v
   - Monitor
-   - 7 inc Monitor for Raspberry Pi 4 
+    - 7 inc Monitor for Raspberry Pi 4 
 #### Real World Video 
 #### Future Work
 #### Refrences
